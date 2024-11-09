@@ -30,7 +30,7 @@
           type="text"
           value={form?.title}
           placeholder="Eg: A Message for Tomorrow"
-          maxlength={30}
+          maxlength={50}
           minlength={10}
           required
           class="border-0 shadow-none border-b rounded-none text-sm focus-visible:ring-0 focus:border-b-[1px] focus:border-b-primary w-full"

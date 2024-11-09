@@ -51,8 +51,10 @@
 </script>
 
 <Toaster class="z-[1000]" />
-<section class="flex flex-1 flex-col min-h-0 w-full">
-  <div class="flex flex-row items-center justify-between z-30 py-2 px-4 sm:px-6">
+<section class="flex flex-1 flex-col min-h-0 w-full sm:items-center">
+  <div
+    class="flex w-full flex-row items-center justify-between z-30 p-4 sm:px-6 sm:max-w-[360px] md:max-w-[480px] lg:max-w-[600px]"
+  >
     <h2
       class="scroll-m-20 text-md sm:text-2xl text-center font-bold tracking-tight transition-colors first:mt-0"
     >
@@ -64,7 +66,7 @@
     </Button>
   </div>
   {#if capsules.length}
-    <ScrollArea class="flex flex-1 flex-col overflow-auto">
+    <ScrollArea class="flex w-full flex-1 flex-col overflow-auto">
       <div class="flex flex-1 flex-col sm:items-center">
         <ul
           class="flex flex-1 flex-col gap-4 py-4 px-4 w-full sm:max-w-[360px] md:max-w-[480px] lg:max-w-[600px]"
@@ -99,9 +101,9 @@
     </ScrollArea>
   {/if}
   {#if !capsules.length}
-    <div class="flex flex-1 justify-center items-center flex-col">
-      <EmptySvg class="w-64 h-64" />
-      <h4 class="scroll-m-20 text-lg text-muted-foreground font-semibold tracking-tight">
+    <div class="flex flex-1 justify-center items-center flex-col gap-4">
+      <EmptySvg class="w-64 h-64 lg:w-[28rem] lg:h-[28rem]" />
+      <h4 class="scroll-m-20 text-lg lg:text-xl text-muted-foreground font-semibold tracking-tight">
         No timecapsules found
       </h4>
     </div>

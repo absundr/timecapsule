@@ -5,7 +5,7 @@
 
 <div class="flex w-screen h-screen flex-col">
   <div class="pl-4 pt-2 pb-4 shadow-md border">
-    <h1 class="scroll-m-20 text-2xl sm:text-4xl font-extrabold tracking-tight lg:text-5xl">
+    <h1 class="scroll-m-20 text-2xl sm:text-4xl font-extrabold tracking-tight lg:text-4xl">
       Timecapsule
     </h1>
   </div>

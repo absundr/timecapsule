@@ -117,7 +117,7 @@ const config: Config = {
         sm: 'calc(var(--radius) - 4px)',
       },
       fontFamily: {
-        sans: [...fontFamily.sans],
+        sans: ['Lato', ...fontFamily.sans],
       },
     },
   },
