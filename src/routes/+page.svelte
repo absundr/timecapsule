@@ -50,7 +50,7 @@
   }
 </script>
 
-<Toaster class="z-[1000]" />
+<Toaster class="bottom-12" />
 <section class="flex flex-1 flex-col min-h-0 w-full sm:items-center">
   <div
     class="flex w-full flex-row items-center justify-between z-30 p-4 sm:px-6 sm:max-w-[360px] md:max-w-[480px] lg:max-w-[600px]"
