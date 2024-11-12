@@ -20,6 +20,9 @@ Thumbs.db
 user-asset
 timecapsule.*
 
+# Logs
+logs
+
 # Vite
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
