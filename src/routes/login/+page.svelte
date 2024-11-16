@@ -1,48 +1,35 @@
 <script lang="ts">
   import { browser } from '$app/environment';
-  import { goto } from '$app/navigation';
-  import * as Alert from '$lib/components/ui/alert';
   import { Button } from '$lib/components/ui/button';
   import { Input } from '$lib/components/ui/input';
-  import ExclamationTriangle from 'svelte-radix/ExclamationTriangle.svelte';
-  import Rocket from 'svelte-radix/Rocket.svelte';
+  import { toast } from 'svelte-sonner';
 
-  const { data, form } = $props();
+  const { form } = $props();
   if (form?.success) {
-    setTimeout(() => browser && goto('/'), 3000);
+    setTimeout(() => {
+      toast.success('You are now logged in', {
+        class: 'bg-green-500 border-green-300',
+        duration: 1500,
+      });
+    }, 100);
+    setTimeout(() => {
+      if (browser) {
+        window.location.href = '/';
+      }
+    }, 1500);
+  }
+
+  if (form?.error) {
+    setTimeout(() => {
+      toast.error(form.error, {
+        class: 'bg-red-500 border-red-300',
+        duration: 3000,
+      });
+    }, 100);
   }
 </script>
 
 <div class="flex flex-1 flex-col">
-  <!-- Success Alert -->
-  {#if form?.success}
-    <div class="flex justify-end items-center absolute w-full p-4">
-      <section>
-        <Alert.Root variant="default" class="bg-green-300 max-w-xl">
-          <Rocket class="h-4 w-4" />
-          <Alert.Title>Success</Alert.Title>
-          <Alert.Description>You will be redirected momentarily.</Alert.Description>
-        </Alert.Root>
-      </section>
-    </div>
-  {/if}
-
-  <!-- Failure Alert -->
-  {#if form?.error}
-    <div class="flex justify-end items-center absolute w-full p-4">
-      <section>
-        <Alert.Root
-          variant="destructive"
-          class="max-w-md text-destructive-foreground bg-destructive"
-        >
-          <ExclamationTriangle class="h-4 w-4 text-destructive-foreground" color="white" />
-          <Alert.Title>Oh no!</Alert.Title>
-          <Alert.Description>{form.error}</Alert.Description>
-        </Alert.Root>
-      </section>
-    </div>
-  {/if}
-
   <div class="flex flex-1 flex-col justify-center items-center mt-[-128px]">
     <!-- Heading -->
     <div class="flex flex-[0.3] justify-center items-center max-w-lg md:max-w-2xl">

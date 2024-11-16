@@ -1,4 +1,5 @@
 import { createCapsule, getCapsules, type NewCapsule } from '$lib/server/capsules';
+import { deleteSessionTokenCookie } from '$lib/server/session';
 import { fail, redirect } from '@sveltejs/kit';
 import type { Actions, PageServerLoad } from './$types';
 
@@ -55,5 +56,9 @@ export const actions = {
 
       return fail(400, { error: 'Something went wrong', ...newCapsule });
     }
+  },
+  logout: async (event) => {
+    deleteSessionTokenCookie(event);
+    return { logout: true };
   },
 } satisfies Actions;

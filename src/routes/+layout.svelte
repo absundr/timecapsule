@@ -1,11 +1,14 @@
 <script lang="ts">
-  import Header from '$lib/components/ui/header/header.svelte';
+  import { Toaster } from 'svelte-sonner';
   import '../app.css';
-  let { children } = $props();
+  import Header from './header.svelte';
+  let { children, data } = $props();
+  const user = $derived(data.user);
 </script>
 
+<Toaster class="bottom-12" />
 <div class="flex w-screen h-screen flex-col">
-  <Header />
+  <Header {user} />
   <div class="flex flex-1 overflow-auto">
     {@render children()}
   </div>

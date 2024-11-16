@@ -1,11 +1,12 @@
 <script lang="ts">
+  import { browser } from '$app/environment';
+  import { goto, invalidateAll } from '$app/navigation';
   import EmptySvg from '$lib/components/assets/EmptySvg.svelte';
   import Badge from '$lib/components/ui/badge/badge.svelte';
   import Button from '$lib/components/ui/button/button.svelte';
   import { CreateCapsule } from '$lib/components/ui/createcapsule/index.js';
   import * as Dialog from '$lib/components/ui/dialog';
   import ScrollArea from '$lib/components/ui/scroll-area/scroll-area.svelte';
-  import { Toaster } from '$lib/components/ui/sonner/index.js';
   import Plus from 'svelte-radix/Plus.svelte';
   import { toast } from 'svelte-sonner';
 
@@ -35,6 +36,21 @@
     );
   }
 
+  if (form?.logout) {
+    setTimeout(() => {
+      toast.success('You have been logged out', {
+        class: 'bg-green-500 border-green-300',
+        duration: 1500,
+      });
+    }, 100);
+    setTimeout(() => {
+      if (browser) {
+        goto('/login');
+        invalidateAll();
+      }
+    }, 1500);
+  }
+
   function formatDate(dateString: string): string {
     // Create a Date object from the string
     const date = new Date(dateString);
@@ -50,10 +66,9 @@
   }
 </script>
 
-<Toaster class="bottom-12" />
 <section class="flex flex-1 flex-col min-h-0 w-full sm:items-center">
   <div
-    class="flex w-full flex-row items-center justify-between z-30 p-4 sm:px-6 sm:max-w-[360px] md:max-w-[480px] lg:max-w-[600px]"
+    class="flex w-full flex-row items-center justify-between p-4 sm:px-6 sm:max-w-[360px] md:max-w-[480px] lg:max-w-[600px]"
   >
     <h2
       class="scroll-m-20 text-md sm:text-2xl text-center font-bold tracking-tight transition-colors first:mt-0"
