@@ -37,7 +37,9 @@ export function validateSessionToken(token: string): SessionValidationResult {
   session.expires_at as expiresAt,
   user.id as userId,
   user.username as username,
-  user.email as email  
+  user.email as email,  
+  user.created_on as createdOn,
+  user.verified as verified
 FROM session 
 INNER JOIN user ON user.id = session.user_id 
 WHERE session.id = ?1`,
@@ -58,6 +60,8 @@ WHERE session.id = ?1`,
     username: row.username,
     email: row.email,
     password: '',
+    createdOn: row.createdOn,
+    verified: row.verified,
   };
 
   if (Date.now() >= session.expiresAt.getTime()) {
@@ -112,4 +116,6 @@ export interface User {
   username: string;
   email: string;
   password: string;
+  createdOn: Date;
+  verified: boolean;
 }
