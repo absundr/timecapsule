@@ -3,6 +3,14 @@ import { register, verify } from '$lib/server/user';
 import { fail } from '@sveltejs/kit';
 import type { Actions } from './$types';
 
+async function sendCode(code: string, email: string) {
+  if (process.platform === 'win32') {
+    await Bun.$`wsl -e bash src/scripts/verification-code-mailer.sh ${email} ${code}`;
+  } else {
+    await Bun.$`bash src/scripts/verification-code-mailer.sh ${email} ${code}`;
+  }
+}
+
 export const actions = {
   signup: async ({ request }) => {
     const data = await request.formData();
@@ -12,7 +20,8 @@ export const actions = {
       password: data.get('password'),
     } as Omit<User, 'id'>;
     try {
-      const { otp } = await register(user);
+      const { code } = await register(user);
+      await sendCode(code, user.email);
       return { success: true, step: 'verify', ...user };
     } catch (e) {
       if (e instanceof Error) {

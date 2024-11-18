@@ -19,17 +19,17 @@ export async function register(user: Omit<User, 'id'>) {
   }
   insertQuery.finalize();
 
-  const otp = crypto.randomUUID().slice(0, 4);
+  const code = crypto.randomUUID().slice(0, 4);
   db.query(
     'INSERT INTO verification(email, otp, created_on, expires_at) VALUES(?1, ?2, ?3, ?4)',
   ).run(
     user.email,
-    otp,
+    code,
     Math.floor(Date.now() / 1000),
     Math.floor((Date.now() + 1000 * 60 * 5) / 1000),
   );
 
-  return { otp };
+  return { code };
 }
 
 export async function login(auth: string, pass: string) {
