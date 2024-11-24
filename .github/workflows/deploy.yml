@@ -17,10 +17,10 @@ jobs:
         with:
           bun-version: ${{ env.BUN_VERSION }}
 
-      - name: bun install & build
+      - name: Install packages and build
         run: |
           bun install
-          npm run build
+          bun run build
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
         with:
@@ -37,8 +37,8 @@ jobs:
         with:
           name: app
 
-      - name: 'Deploy to VPS'
-        id: deploy-to-vps
+      - name: Deploy to server
+        id: deploy-to-server
         uses: appleboy/scp-action@v0.1.7
         with:
           host: ${{ secrets.HOST }}
@@ -46,4 +46,16 @@ jobs:
           port: ${{ secrets.PORT }}
           key: ${{ secrets.KEY }}
           source: '.'
-          target: data/timecapsule
+          target: /data/timecapsule
+
+      - name: Start the app
+        uses: appleboy/ssh-action@v1.2.0
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.KEY }}
+          port: ${{ secrets.PORT }}
+          script: |
+            cd /data/timecapsule
+            bun run update-db
+            bun ./build
