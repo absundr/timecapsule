@@ -5,7 +5,8 @@
   "scripts": {
     "start": "bun --bun run dev",
     "dev": "vite dev",
-    "build": "vite build",
+    "vite:build": "vite build",
+    "build": "bun --bun run vite:build",
     "update-db": "bun src/scripts/dbscript.ts",
     "cron": "bun src/scripts/cron.ts",
     "preview": "vite preview",
