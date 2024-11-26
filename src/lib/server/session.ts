@@ -84,20 +84,24 @@ export function invalidateSession(sessionId: string): void {
 }
 
 export function setSessionTokenCookie(event: RequestEvent, token: string, expiresAt: Date): void {
+  const origin = import.meta.env.ORIGIN || `${event.url.protocol}//${event.url.host}`;
   event.cookies.set('session', token, {
     httpOnly: true,
     sameSite: 'lax',
     expires: expiresAt,
     path: '/',
+    domain: origin,
   });
 }
 
 export function deleteSessionTokenCookie(event: RequestEvent): void {
+  const origin = import.meta.env.ORIGIN || `${event.url.protocol}//${event.url.host}`;
   event.cookies.set('session', '', {
     httpOnly: true,
     sameSite: 'lax',
     maxAge: 0,
     path: '/',
+    domain: origin,
   });
 }
 
