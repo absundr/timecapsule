@@ -60,4 +60,5 @@ jobs:
             cd /data/timecapsule
             bun check
             bun update-db
-            pm2 start pm2.config.js
+            pm2 start --interpreter bun --name timecapsule-app ./build/index.js
+            pm2 start --interpreter bun --name timecapsule-worker ./src/scripts/cron.ts
