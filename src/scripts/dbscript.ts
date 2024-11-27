@@ -2,7 +2,7 @@ import db from '$lib/server/db';
 
 db.exec(
   `
-    CREATE TABLE user (
+    create table if not exists user (
     id TEXT NOT NULL PRIMARY KEY,
     username VARCHAR(20) NOT NULL,
     email VARCHAR(50) NOT NULL,
@@ -15,7 +15,7 @@ db.exec(
 
 db.exec(
   `
-    CREATE TABLE session (
+    create table if not exists session (
     id TEXT NOT NULL PRIMARY KEY,
     user_id TEXT NOT NULL REFERENCES user(id),
     expires_at INTEGER NOT NULL
@@ -25,7 +25,7 @@ db.exec(
 
 db.exec(
   `
-    CREATE TABLE capsule (
+    create table if not exists capsule (
     id TEXT NOT NULL PRIMARY KEY,
     user_id TEXT NOT NULL REFERENCES user(id),
     title TEXT NOT NULL CHECK(LENGTH(title) <= 100),
@@ -40,7 +40,7 @@ db.exec(
 
 db.exec(
   `
-    CREATE TABLE verification (
+    create table if not exists verification (
     email VARCHAR(50) NOT NULL PRIMARY KEY REFERENCES user(email),
     otp CHAR(4) NOT NULL,
     created_on INTEGER NOT NULL,
