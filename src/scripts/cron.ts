@@ -13,7 +13,7 @@ async function processAndSendTimecapsules() {
   const capsulesToSend = getCapsulesToSend();
   log(`Total capsules to send: ${capsulesToSend.length}`);
   for (const capsule of capsulesToSend) {
-    let args = `"${capsule.email}" "${capsule.title}" "${capsule.message}"`;
+    let args = `${capsule.email} "${capsule.title}" "${capsule.message}"`;
     if (capsule.picture) {
       args += ` ${process.env.PUBLIC_API_URL}/api/user/${capsule.userId}/image/${capsule.picture}`;
     }
