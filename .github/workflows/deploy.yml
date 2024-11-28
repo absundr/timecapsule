@@ -45,7 +45,7 @@ jobs:
           username: ${{ secrets.USERNAME }}
           port: ${{ secrets.PORT }}
           key: ${{ secrets.KEY }}
-          source: '.'
+          source: '., !timecapsule.sqlite, !timecapsule.sqlite-shm, !timecapsule.sqlite-wal, !logs, !user-asset'
           target: /data/timecapsule
 
       - name: Run
