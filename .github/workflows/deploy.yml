@@ -64,4 +64,4 @@ jobs:
             pm2 delete timecapsule-app
             pm2 delete timecapsule-worker
             pm2 start --interpreter bun --name timecapsule-app ./build/index.js
-            pm2 start --interpreter bun --name timecapsule-worker ./src/scripts/cron.ts --env PUBLIC_API_URL=${{ secrets.PUBLIC_API_URL }}
+            PUBLIC_API_URL=${{ secrets.PUBLIC_API_URL }} pm2 start --interpreter bun --name timecapsule-worker ./src/scripts/cron.ts
