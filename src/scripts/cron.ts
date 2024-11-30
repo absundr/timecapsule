@@ -41,6 +41,6 @@ if (!fs.existsSync('logs')) {
 }
 
 // Run every 3 hours
-cron.schedule('* * */3 * * *', async () => {
+cron.schedule('0 0 */3 * * *', async () => {
   await processAndSendTimecapsules();
 });
