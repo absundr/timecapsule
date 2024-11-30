@@ -13,15 +13,15 @@ async function processAndSendTimecapsules() {
   const capsulesToSend = getCapsulesToSend();
   log(`Total capsules to send: ${capsulesToSend.length}`);
   for (const capsule of capsulesToSend) {
-    let args = `${capsule.email} "${capsule.title}" "${capsule.message}"`;
+    let imgurl = '';
     if (capsule.picture) {
-      args += ` ${process.env.PUBLIC_API_URL}/api/user/${capsule.userId}/image/${capsule.picture}`;
+      imgurl += `${process.env.PUBLIC_API_URL}/api/user/${capsule.userId}/image/${capsule.picture}`;
     }
     try {
       if (process.platform === 'win32') {
-        await $`wsl -e bash src/scripts/capsule-mailer.sh ${args}`;
+        await $`wsl -e bash src/scripts/capsule-mailer.sh ${capsule.email} ${capsule.title} ${capsule.message} ${imgurl}`;
       } else {
-        await $`bash src/scripts/capsule-mailer.sh ${args}`;
+        await $`bash src/scripts/capsule-mailer.sh ${capsule.email} ${capsule.title} ${capsule.message} ${imgurl}`;
       }
       successIds.push(capsule.capsuleId);
     } catch (e) {
