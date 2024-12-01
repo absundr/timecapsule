@@ -4,20 +4,11 @@ title=$2
 message=$3
 imgurl=$4
 
-# Html content for the body
-imgtag=""
-if [[ -n $imgurl ]];
-then
-    imgtag="<img src=$imgurl alt='img' />"
-fi
-
-htmlBody="<html>
-<body>
-    <h1>$title</h1>
-    <p>$message</p>
-    $imgtag
-</body>
-</html>"
+file_path="src/templates/capsule.html"
+htmlBody=$(<"$file_path")
+htmlBody=${htmlBody/\#title\#/$title}
+htmlBody=${htmlBody/\#message\#/$message}
+htmlBody=${htmlBody/\#imgurl\#/$imgurl}
 
 # Mailing meta data
 mailer="From: Timecapsule <bashscript@localhost.com>"
