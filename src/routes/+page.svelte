@@ -107,7 +107,7 @@
                 <img src={`/api/user/${user.id}/image/${item.picture}`} alt="capsule" />
               {/if}
               <p class="leading-5 text-sm text-secondary-foreground [word-break:break-word]">
-                {item.message}
+                {@html item.message}
               </p>
             </li>
           {/each}

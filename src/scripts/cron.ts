@@ -18,6 +18,8 @@ async function processAndSendTimecapsules() {
       imgurl += `${process.env.PUBLIC_API_URL}/api/user/${capsule.userId}/image/${capsule.picture}`;
     }
     try {
+      // escape the '&' symbols so bash can properly replace the html
+      capsule.message = capsule.message.replaceAll('&', '\\&');
       if (process.platform === 'win32') {
         await $`wsl -e bash src/scripts/capsule-mailer.sh ${capsule.email} ${capsule.title} ${capsule.message} ${imgurl}`;
       } else {

@@ -1,6 +1,7 @@
 import { createCapsule, getCapsules, type NewCapsule } from '$lib/server/capsules';
 import { deleteSessionTokenCookie } from '$lib/server/session';
 import { fail, redirect } from '@sveltejs/kit';
+import { marked } from 'marked';
 import type { Actions, PageServerLoad } from './$types';
 
 const MAX_SIZE = 20000000;
@@ -28,6 +29,7 @@ export const actions = {
       sendOn: data.get('sendOn'),
       picture: null,
     } as NewCapsule;
+    const message = newCapsule.message;
     try {
       const user = locals.user.id;
       const file = data.get('picture') as File;
@@ -46,15 +48,17 @@ export const actions = {
         });
         newCapsule.picture = fileName;
       }
+
+      newCapsule.message = await marked(newCapsule.message);
       createCapsule(newCapsule);
       return { sucess: true };
     } catch (e) {
       console.log(e);
       if (e instanceof Error) {
-        return fail(400, { error: e.message, ...newCapsule });
+        return fail(400, { error: e.message, ...newCapsule, message: message });
       }
 
-      return fail(400, { error: 'Something went wrong', ...newCapsule });
+      return fail(400, { error: 'Something went wrong', ...newCapsule, message: message });
     }
   },
   logout: async (event) => {
