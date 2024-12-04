@@ -63,5 +63,5 @@ jobs:
             bun update-db
             pm2 delete timecapsule-app
             pm2 delete timecapsule-worker
-            pm2 start --interpreter bun --name timecapsule-app ./build/index.js
+            ORIGIN=${{ secrets.PUBLIC_API_URL }} HOST=127.0.0.1 PORT=3000 pm2 start --interpreter bun --name timecapsule-app ./build/index.js
             PUBLIC_API_URL=${{ secrets.PUBLIC_API_URL }} pm2 start --interpreter bun --name timecapsule-worker ./src/scripts/cron.ts
