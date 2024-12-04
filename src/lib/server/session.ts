@@ -89,7 +89,6 @@ export function setSessionTokenCookie(event: RequestEvent, token: string, expire
     sameSite: 'lax',
     expires: expiresAt,
     path: '/',
-    secure: false, //allow hosting on http
   });
 }
 
@@ -99,7 +98,6 @@ export function deleteSessionTokenCookie(event: RequestEvent): void {
     sameSite: 'lax',
     maxAge: 0,
     path: '/',
-    secure: false, //allow hosting on http
   });
 }
 
