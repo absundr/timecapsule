@@ -1,8 +1,12 @@
+[![.github/workflows/deploy.yml](https://github.com/absundr/timecapsule/actions/workflows/deploy.yml/badge.svg?branch=main)](https://github.com/absundr/timecapsule/actions/workflows/deploy.yml)
+
 ## Overview
 
 Timecapsule is a web application built using SvelteKit to send digital timecapsules to yourself and receive them sometime in the future.
 
 It is standalone and does not rely on cloud services, email providers, object storage or auth providers for hosting. Everything can be self-hosted on bare metal or run locally.
+
+https://timecapsule.pod42.dev/
 
 ### Timecapsule uses:
 
